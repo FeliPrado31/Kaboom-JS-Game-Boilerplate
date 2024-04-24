@@ -59,6 +59,10 @@ src/
 - `constants.ts`: Constants used in the project
 - `kaboomInit.ts`: Function for initializing the Kaboom.js instance
 
+## Demo
+
+You can check out the live demo of the game here: https://github.com/FeliPrado31/Kaboom-JS-Game-Boilerplate
+
 ## Contributing
 
 If you'd like to contribute to this project, feel free to submit your pull requests. You can also open issues to report bugs or suggest improvements.
