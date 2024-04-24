@@ -16,7 +16,7 @@ The base game implementation follows the [Kaboom.js intro tutorial](https://kabo
 
 ## Prerequisites
 
-- Node.js
+- Node.js (21.7.2)
 - npm (Node.js package manager)
 
 ## Installation
