@@ -61,7 +61,7 @@ src/
 
 ## Demo
 
-You can check out the live demo of the game here: https://github.com/FeliPrado31/Kaboom-JS-Game-Boilerplate
+You can check out the live demo of the game here: [Live Demo](https://kaboom-js-game-boilerplate.vercel.app/)
 
 ## Contributing
 
