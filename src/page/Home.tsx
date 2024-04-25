@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
 import { initKaboom } from '../kaboomInit';
-import MenuScene from '../scenes/MenuScene';
 import GameScene from '../scenes/GameScene'; // Importa la clase GameScene
 import Player from '../classes/Player';
 import Tree from '../classes/Tree';
@@ -26,12 +25,9 @@ function Home() {
 
     // Crea una instancia de GameScene con tus entidades
     const gameScene = new GameScene(kaboomInstance, entities);
-
-    const menuScene = new MenuScene(kaboomInstance);
     const loseScene = new LoseScene(kaboomInstance);
 
-    menuScene.init();
-    gameScene.init(); // Inicializa la escena del juego
+    gameScene.init();
     loseScene.init();
 
     kaboomInstance.go('game');

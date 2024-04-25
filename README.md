@@ -40,12 +40,16 @@ This will compile the TypeScript code, start the Vite development server, and op
 ```
 src/
   components/
-    App.tsx
   classes/
     Floor.ts
     Player.ts
     Score.ts
     Tree.ts
+  interface/
+    IGameEntity.ts
+    IScene
+  page/
+    Home.tsx
   scenes/
     GameScene.ts
     LoseScene.ts
@@ -53,9 +57,10 @@ src/
   kaboomInit.ts
 ```
 
-- `components/`: React components
+- `components/`: Game Components
 - `classes/`: Classes representing game entities
 - `scenes/`: Functions for initializing game scenes
+- `interface/` Interfaces used throughout the project
 - `constants.ts`: Constants used in the project
 - `kaboomInit.ts`: Function for initializing the Kaboom.js instance
 
