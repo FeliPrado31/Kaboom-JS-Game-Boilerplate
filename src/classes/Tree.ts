@@ -1,14 +1,15 @@
 import { KaboomCtx } from 'kaboom';
+import { IGameEntity } from '../interface/IGameEntity';
 import { FLOOR_HEIGHT, SPEED } from '../constants';
 
-export class Tree {
+export default class Tree implements IGameEntity {
   private kaboomInstance: KaboomCtx;
 
   constructor(kaboomInstance: KaboomCtx) {
     this.kaboomInstance = kaboomInstance;
   }
 
-  spawnTree() {
+  spawn(): void {
     this.kaboomInstance.add([
       this.kaboomInstance.rect(48, this.kaboomInstance.rand(32, 96)),
       this.kaboomInstance.area(),
@@ -24,7 +25,7 @@ export class Tree {
     ]);
 
     this.kaboomInstance.wait(this.kaboomInstance.rand(0.5, 1.5), () =>
-      this.spawnTree()
+      this.spawn()
     );
   }
 }

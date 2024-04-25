@@ -1,22 +1,22 @@
-import { GameObj, KaboomCtx } from 'kaboom';
+import { KaboomCtx } from 'kaboom';
 import { FLOOR_HEIGHT } from '../constants';
+import { IGameEntity } from '../interface/IGameEntity';
 
-export class Floor {
-  private floor: GameObj;
+export default class Floor implements IGameEntity {
+  private kaboomInstance: KaboomCtx;
 
   constructor(kaboomInstance: KaboomCtx) {
-    this.floor = kaboomInstance.add([
-      kaboomInstance.rect(kaboomInstance.width(), FLOOR_HEIGHT),
-      kaboomInstance.outline(4),
-      kaboomInstance.pos(0, kaboomInstance.height()),
-      kaboomInstance.anchor('botleft'),
-      kaboomInstance.area(),
-      kaboomInstance.body({ isStatic: true }),
-      kaboomInstance.color(127, 200, 255),
-    ]);
+    this.kaboomInstance = kaboomInstance;
   }
-
-  getFloor() {
-    return this.floor;
+  spawn(): void {
+    this.kaboomInstance.add([
+      this.kaboomInstance.rect(this.kaboomInstance.width(), FLOOR_HEIGHT),
+      this.kaboomInstance.outline(4),
+      this.kaboomInstance.pos(0, this.kaboomInstance.height()),
+      this.kaboomInstance.anchor('botleft'),
+      this.kaboomInstance.area(),
+      this.kaboomInstance.body({ isStatic: true }),
+      this.kaboomInstance.color(127, 200, 255),
+    ]);
   }
 }

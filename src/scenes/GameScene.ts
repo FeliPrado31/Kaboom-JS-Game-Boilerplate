@@ -1,29 +1,44 @@
-import { Player } from '../classes/Player';
-import { Floor } from '../classes/Floor';
-import { Tree } from '../classes/Tree';
-import { Score } from '../classes/Score';
 import { KaboomCtx } from 'kaboom';
+import { IScene } from '../interface/IScene';
+import { IGameEntity } from '../interface/IGameEntity';
+import Player from '../classes/Player';
+import Score from '../classes/Score';
 
-export function initGameScene(kaboomInstance: KaboomCtx) {
-  kaboomInstance.scene('game', () => {
-    kaboomInstance.setGravity(1600);
+export default class GameScene implements IScene {
+  private kaboomInstance: KaboomCtx;
+  private entities: { [key: string]: IGameEntity };
 
-    const player = new Player(kaboomInstance);
-    new Floor(kaboomInstance);
-    const tree = new Tree(kaboomInstance);
-    const score = new Score(kaboomInstance);
+  constructor(
+    kaboomInstance: KaboomCtx,
+    entities: { [key: string]: IGameEntity }
+  ) {
+    this.kaboomInstance = kaboomInstance;
+    this.entities = entities;
+  }
 
-    tree.spawnTree();
+  public init() {
+    this.kaboomInstance.scene('game', () => {
+      this.setupGame();
+    });
+  }
 
-    player.handleCollision(kaboomInstance, () => {
-      kaboomInstance.go('lose', score.getScore());
+  private setupGame() {
+    this.kaboomInstance.setGravity(1600);
+    Object.values(this.entities).forEach((entity) => entity.spawn());
+
+    // Ahora puedes acceder a las entidades por nombre
+    const player = this.entities['player'] as Player;
+    const score = this.entities['score'] as Score;
+
+    player.handleCollision(() => {
+      this.kaboomInstance.go('lose', score.getScore());
     });
 
-    kaboomInstance.onKeyPress('space', () => player.jump());
-    kaboomInstance.onClick(() => player.jump());
+    this.kaboomInstance.onKeyPress('space', () => player.jump());
+    this.kaboomInstance.onClick(() => player.jump());
 
-    kaboomInstance.onUpdate(() => {
+    this.kaboomInstance.onUpdate(() => {
       score.incrementScore();
     });
-  });
+  }
 }

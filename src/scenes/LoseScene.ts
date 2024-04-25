@@ -1,28 +1,43 @@
 import { KaboomCtx } from 'kaboom';
+import { IScene } from '../interface/IScene';
 
-export function initLoseScene(kaboomInstance: KaboomCtx) {
-  kaboomInstance.scene('lose', (scoreValue: number) => {
-    kaboomInstance.add([
-      kaboomInstance.sprite('bean'),
-      kaboomInstance.pos(
-        kaboomInstance.width() / 2,
-        kaboomInstance.height() / 2 - 80
+export default class LoseScene implements IScene {
+  private kaboomInstance: KaboomCtx;
+
+  constructor(kaboomInstance: KaboomCtx) {
+    this.kaboomInstance = kaboomInstance;
+  }
+
+  public init() {
+    this.kaboomInstance.scene('lose', (scoreValue: number) => {
+      this.setupLoseScene(scoreValue);
+    });
+  }
+
+  private setupLoseScene(scoreValue: number) {
+    this.kaboomInstance.add([
+      this.kaboomInstance.sprite('bean'),
+      this.kaboomInstance.pos(
+        this.kaboomInstance.width() / 2,
+        this.kaboomInstance.height() / 2 - 80
       ),
-      kaboomInstance.scale(2),
-      kaboomInstance.anchor('center'),
+      this.kaboomInstance.scale(2),
+      this.kaboomInstance.anchor('center'),
     ]);
 
-    kaboomInstance.add([
-      kaboomInstance.text(scoreValue.toString()),
-      kaboomInstance.pos(
-        kaboomInstance.width() / 2,
-        kaboomInstance.height() / 2 + 80
+    this.kaboomInstance.add([
+      this.kaboomInstance.text(scoreValue.toString()),
+      this.kaboomInstance.pos(
+        this.kaboomInstance.width() / 2,
+        this.kaboomInstance.height() / 2 + 80
       ),
-      kaboomInstance.scale(2),
-      kaboomInstance.anchor('center'),
+      this.kaboomInstance.scale(2),
+      this.kaboomInstance.anchor('center'),
     ]);
 
-    kaboomInstance.onKeyPress('space', () => kaboomInstance.go('game'));
-    kaboomInstance.onClick(() => kaboomInstance.go('game'));
-  });
+    this.kaboomInstance.onKeyPress('space', () =>
+      this.kaboomInstance.go('game')
+    );
+    this.kaboomInstance.onClick(() => this.kaboomInstance.go('game'));
+  }
 }

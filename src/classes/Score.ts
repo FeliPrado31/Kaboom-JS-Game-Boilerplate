@@ -1,27 +1,37 @@
 import { GameObj, KaboomCtx } from 'kaboom';
+import { IGameEntity } from '../interface/IGameEntity';
 
-export class Score {
+export default class Score implements IGameEntity {
   private score: number;
-  private scoreLabel: GameObj;
+  private scoreLabel!: GameObj;
+  private kaboomInstance: KaboomCtx;
 
   constructor(kaboomInstance: KaboomCtx) {
     this.score = 0;
-    this.scoreLabel = kaboomInstance.add([
-      kaboomInstance.text(this.score.toString()),
-      kaboomInstance.pos(24, 24),
+    this.kaboomInstance = kaboomInstance;
+  }
+  spawn(): void {
+    this.scoreLabel = this.kaboomInstance.add([
+      this.kaboomInstance.text(this.score.toString(), { size: 24 }),
+      this.kaboomInstance.pos(24, 24),
+      this.kaboomInstance.color(0, 0, 0),
     ]);
   }
 
-  incrementScore() {
+  incrementScore(): void {
     this.score++;
-    this.scoreLabel.text = this.score;
+    this.updateScoreLabel();
   }
 
-  getScore() {
+  private updateScoreLabel(): void {
+    this.scoreLabel.text = `Score: ${this.score}`;
+  }
+
+  getScore(): number {
     return this.score;
   }
 
-  getScoreLabel() {
+  getScoreLabel(): GameObj {
     return this.scoreLabel;
   }
 }
